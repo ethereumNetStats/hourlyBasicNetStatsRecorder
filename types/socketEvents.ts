@@ -1,11 +1,12 @@
-//Define the type of the client => server events.
-import {basicNetStats, blockNumberWithTimestamp} from "./types";
+// ソケットサーバーに送信するデータ型、データベースの型定義のインポート
+import type {basicNetStats, blockNumberWithTimestamp} from "./types";
 
+// blockDataRecorderからソケットサーバーを介して受信するイベント名とデータ型の定義
 type ServerToClientEvents = {
     newBlockDataRecorded: (blockNumberWithTimestamp: blockNumberWithTimestamp) => void,
 };
 
-//Define the type of the client => server events.
+// ソケットサーバーへ送信するイベント名とデータ型の定義
 type ClientToServerEvents = {
     hourlyBasicNetStatsRecorded: (emitDate: basicNetStats) => void,
 };

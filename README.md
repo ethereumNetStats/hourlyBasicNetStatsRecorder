@@ -9,18 +9,18 @@ hourlyBasicNetStatsRecorderは、[blockDataRecorder](https://github.com/ethereum
 Gethの運用とMySQLのDBテーブル`blockData`の生成までを完了して下さい。  
 また、ethereumNetStatsのバックエンドは[socketServer](https://github.com/ethereumNetStats/socketServer)を介してそれぞれのプログラムがデータをやりとりします。したがってsocketServerを稼働させて下さい。
 プログラムの内容のみを知りたい場合はソースコードを参照ください。  
-なお、hourlyBasicNetStatsRecorderは、[minutelyBasicNetStatsRecorder](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder)の集計期間を示す変数`DURATION`を変更しただけのものです。
+**なお、hourlyBasicNetStatsRecorderは、[minutelyBasicNetStatsRecorder](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder)の集計期間を示す変数`DURATION`を変更しただけのものです。**
 
-**ソースコード**
-- メイン：[hourlyBasicNetStatsRecorder.ts](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder/blob/main/minutelyBasicNetStatsRecorder.ts)
-- 外部関数：[timeRangeArrayMaker.ts](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder/blob/main/externalFunctions/timeRangeArrayMaker.ts)
-- 外部関数：[recordBasicNetStats.ts](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder/blob/main/externalFunctions/recordBasicNetStats.ts)
+### ソースコード
+- メイン：[hourlyBasicNetStatsRecorder.ts](https://github.com/ethereumNetStats/hourlyBasicNetStatsRecorder/blob/main/hourlyBasicNetStatsRecorder.ts)
+- 外部関数：[timeRangeArrayMaker.ts](https://github.com/ethereumNetStats/hourlyBasicNetStatsRecorder/blob/main/externalFunctions/timeRangeArrayMaker.ts)
+- 外部関数：[recordBasicNetStats.ts](https://github.com/ethereumNetStats/hourlyBasicNetStatsRecorder/blob/main/externalFunctions/recordBasicNetStats.ts)
 
 ## 使い方
 以下では、ubuntu server v22.04での使用例を説明します。  
 まずこのレポジトリを`clone`します。
 ```shell
-git clone https://github.com/ethereumNetStats/minutelyBasicNetStats.git
+git clone https://github.com/ethereumNetStats/hourlyBasicNetStatsRecorder.git
 ```
 クローンしたディレクトリ内にある`.envSample`ファイルの`MYSQL_USER`と`MYSQL_PASS`を編集します。  
 [blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)の手順通りにMySQLコンテナを立ち上げた場合は`MYSQL_USER=root`、`MYSQL_PASS`は起動時に指定したパスワードになります。  

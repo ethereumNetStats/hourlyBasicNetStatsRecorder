@@ -1,15 +1,19 @@
+// blockDataRecorderからsocketServerを介して受信するデータ型の定義
 type blockNumberWithTimestamp = {
     blockNumber: number | undefined,
     timestamp: number | undefined,
 }
 
+// 集計期間の開始と終了を示すオブジェクトの型定義
 type timeRange = {
     startTime: number | string,
     endTime: number | string,
 };
 
+// 集計期間を示すオブジェクトを要素とする配列型の定義
 type timeRangeArray = Array<timeRange>;
 
+// データベースに記録するデータ型の定義
 type basicNetStats = {
     startTimeReadable: string,
     endTimeReadable: string,
