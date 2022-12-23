@@ -3,13 +3,13 @@ hourlyBasicNetStatsRecorderは、[Geth](https://github.com/ethereum/go-ethereum)
 イーサリアムネットワークの統計情報をMySQLデータベースに記録します。  
 hourlyBasicNetStatsRecorderは、Gethとの通信には[web3js](https://github.com/web3/web3.js)を使用し、その他の通信には[sokcet.io](https://socket.io/)を使用します。
 hourlyBasicNetStatsRecorderは、[blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)から`newBlockDataRecorded`イベントを[socketServer](https://github.com/ethereumNetStats/socketServer)を介して受け取ったときに集計処理を開始し、集計結果をデータベースに記録し、記録が完了したことを`minutelyBasicNetStatsRecorded`イベントでsocketServerに通知します。  
+**なお、hourlyBasicNetStatsRecorderは、[minutelyBasicNetStatsRecorder](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder)の集計期間を示す変数`DURATION`を変更しただけのものです。**  
 
 # 事前準備
 [blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)のDockerのインストール〜ソースコードの実行までを完了して
 Gethの運用とMySQLのDBテーブル`blockData`の生成までを完了して下さい。  
 また、ethereumNetStatsのバックエンドは[socketServer](https://github.com/ethereumNetStats/socketServer)を介してそれぞれのプログラムがデータをやりとりします。したがってsocketServerを稼働させて下さい。
-プログラムの内容のみを知りたい場合はソースコードを参照ください。  
-**なお、hourlyBasicNetStatsRecorderは、[minutelyBasicNetStatsRecorder](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder)の集計期間を示す変数`DURATION`を変更しただけのものです。**
+プログラムの内容のみを知りたい場合はソースコードを参照ください。
 
 ### ソースコード
 - メイン：[hourlyBasicNetStatsRecorder.ts](https://github.com/ethereumNetStats/hourlyBasicNetStatsRecorder/blob/main/hourlyBasicNetStatsRecorder.ts)
