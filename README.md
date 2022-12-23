@@ -8,7 +8,7 @@ hourlyBasicNetStatsRecorderは、[blockDataRecorder](https://github.com/ethereum
 # 事前準備
 [blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)のDockerのインストール〜ソースコードの実行までを完了して
 Gethの運用とMySQLのDBテーブル`blockData`の生成までを完了して下さい。  
-また、ethereumNetStatsのバックエンドは[socketServer](https://github.com/ethereumNetStats/socketServer)を介してそれぞれのプログラムがデータをやりとりします。したがってsocketServerを稼働させて下さい。
+また、ethereumNetStatsのバックエンドは[socketServer](https://github.com/ethereumNetStats/socketServer)を介してそれぞれのプログラムがデータをやりとりします。したがってsocketServerを稼働させて下さい。  
 プログラムの内容のみを知りたい場合はソースコードを参照ください。
 
 ### ソースコード
