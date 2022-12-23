@@ -2,7 +2,7 @@
 hourlyBasicNetStatsRecorderは、[Geth](https://github.com/ethereum/go-ethereum)にアクセスし、
 イーサリアムネットワークの統計情報をMySQLデータベースに記録します。  
 hourlyBasicNetStatsRecorderは、Gethとの通信には[web3js](https://github.com/web3/web3.js)を使用し、その他の通信には[sokcet.io](https://socket.io/)を使用します。
-hourlyBasicNetStatsRecorderは、[blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)から`newBlockDataRecorded`イベントを[socketServer](https://github.com/ethereumNetStats/socketServer)を介して受け取ったときに集計処理を開始し、集計結果をデータベースに記録し、記録が完了したことを`minutelyBasicNetStatsRecorded`イベントでsocketServerに通知します。  
+hourlyBasicNetStatsRecorderは、[blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)から`newBlockDataRecorded`イベントを[socketServer](https://github.com/ethereumNetStats/socketServer)を介して受け取ったときに集計処理を開始し、集計結果をデータベースに記録し、記録が完了したことを`hourlyBasicNetStatsRecorded`イベントでsocketServerに通知します。  
 **なお、hourlyBasicNetStatsRecorderは、[minutelyBasicNetStatsRecorder](https://github.com/ethereumNetStats/minutelyBasicNetStatsRecorder)の集計期間を示す変数`DURATION`を変更しただけのものです。**  
 
 # 事前準備
@@ -18,7 +18,46 @@ Gethの運用とMySQLのDBテーブル`blockData`の生成までを完了して�
 
 ## 使い方
 以下では、ubuntu server v22.04での使用例を説明します。  
-まずこのレポジトリを`clone`します。
+まず、[blockDataRecorder](https://github.com/ethereumNetStats/blockDataRecorder)の説明で作成したデータベースに、以下のコマンドで集計データを記録するテーブルを作成します。
+```mysql
+CREATE TABLE `ethereum.hourlyBasicNetStats` (
+                                       `startTimeReadable` varchar(19) NOT NULL,
+                                       `endTimeReadable` varchar(19) NOT NULL,
+                                       `startTimeUnix` int NOT NULL,
+                                       `endTimeUnix` int NOT NULL,
+                                       `actualStartTimeUnix` int NOT NULL,
+                                       `actualEndTimeUnix` int NOT NULL,
+                                       `startBlockNumber` int NOT NULL,
+                                       `endBlockNumber` int NOT NULL,
+                                       `blocks` int DEFAULT NULL,
+                                       `totalBlockSize` int DEFAULT NULL,
+                                       `averageBlockSize` float DEFAULT NULL,
+                                       `blockSizePerBlock` float DEFAULT NULL,
+                                       `totalDifficulty` varchar(64) DEFAULT NULL,
+                                       `averageDifficulty` varchar(64) DEFAULT NULL,
+                                       `difficultyPerBlock` varchar(64) DEFAULT NULL,
+                                       `totalUncleDifficulty` varchar(64) DEFAULT NULL,
+                                       `averageUncleDifficulty` varchar(64) DEFAULT NULL,
+                                       `uncleDifficultyPerBlock` varchar(64) DEFAULT NULL,
+                                       `totalNumberOfUncleBlocks` int DEFAULT NULL,
+                                       `averageNumberOfUncleBlocks` float DEFAULT NULL,
+                                       `numberOfUncleBlocksPerBlock` float DEFAULT NULL,
+                                       `hashRate` float DEFAULT NULL,
+                                       `totalTransactions` int DEFAULT NULL,
+                                       `averageTransactions` float DEFAULT NULL,
+                                       `transactionsPerBlock` float DEFAULT NULL,
+                                       `totalBaseFeePerGas` float DEFAULT NULL,
+                                       `averageBaseFeePerGas` float DEFAULT NULL,
+                                       `baseFeePerGasPerBlock` float DEFAULT NULL,
+                                       `totalGasUsed` float DEFAULT NULL,
+                                       `averageGasUsed` float DEFAULT NULL,
+                                       `gasUsedPerBlock` float DEFAULT NULL,
+                                       `noRecordFlag` tinyint(1) DEFAULT NULL,
+                                       KEY `minutelyBasicNetStats_endTimeUnix_index` (`endTimeUnix`),
+                                       KEY `minutelyBasicNetStats_startTimeUnix_index` (`startTimeUnix`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+```
+次にこのレポジトリを`clone`します。
 ```shell
 git clone https://github.com/ethereumNetStats/hourlyBasicNetStatsRecorder.git
 ```
